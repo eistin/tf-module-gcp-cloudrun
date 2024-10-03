@@ -64,7 +64,7 @@ variable "is_public" {
 }
 
 variable "private_access_iam_members" {
-  type        = set(string)
+  type        = list(string)
   description = "Members to give access to"
   default     = []
 }

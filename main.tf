@@ -75,7 +75,7 @@ resource "google_cloud_run_service_iam_member" "public_invoker" {
 }
 
 resource "google_cloud_run_service_iam_member" "private_invoker" {
-  for_each = var.private_access_iam_members
+  for_each = toset(var.private_access_iam_members)
   location = google_cloud_run_v2_service.main.location
   project  = google_cloud_run_v2_service.main.project
   service  = google_cloud_run_v2_service.main.name
