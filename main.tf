@@ -63,3 +63,22 @@ resource "google_cloud_run_v2_service" "main" {
     ]
   }
 }
+
+
+resource "google_cloud_run_service_iam_member" "public_invoker" {
+  count    = var.is_public ? 1 : 0
+  location = google_cloud_run_v2_service.main.location
+  project  = google_cloud_run_v2_service.main.project
+  service  = google_cloud_run_v2_service.main.name
+  role     = "roles/run.invoker"
+  member   = "allUsers"
+}
+
+resource "google_cloud_run_service_iam_member" "private_invoker" {
+  for_each = var.private_access_iam_members
+  location = google_cloud_run_v2_service.main.location
+  project  = google_cloud_run_v2_service.main.project
+  service  = google_cloud_run_v2_service.main.name
+  role     = "roles/run.invoker"
+  member   = each.key
+}

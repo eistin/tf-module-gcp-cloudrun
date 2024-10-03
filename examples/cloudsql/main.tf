@@ -6,6 +6,11 @@ module "cloudrun-cloudsql-example" {
   service_name         = "hello"
   service_account_mail = var.service_account_mail
   cloudsql_instances   = [var.cloudsql_instances_connection_name]
+  is_public            = false
+  private_access_iam_members = [
+    "user:user1@example.com",
+    "serviceAccount:sa1@your-project.iam.gserviceaccount.com"
+  ]
   env_vars = {
     "KEY1" = "VALUE1"
     "KEY2" = "VALUE2"

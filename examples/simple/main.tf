@@ -5,4 +5,5 @@ module "cloudrun-cloudsql-example" {
   image                = "us-docker.pkg.dev/cloudrun/container/hello"
   service_name         = "hello"
   service_account_mail = var.service_account_mail
+  is_public            = true
 }

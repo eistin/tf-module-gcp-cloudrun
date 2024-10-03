@@ -56,3 +56,15 @@ variable "env_secret_vars" {
   }))
   default = {}
 }
+
+variable "is_public" {
+  type        = bool
+  description = "Make the cloud run public or not"
+  default     = false
+}
+
+variable "private_access_iam_members" {
+  type        = set(string)
+  description = "Members to give access to"
+  default     = []
+}
