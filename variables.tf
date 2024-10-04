@@ -64,7 +64,10 @@ variable "is_public" {
 }
 
 variable "private_access_iam_members" {
-  type        = list(string)
+  type = list(object({
+    id    = string
+    email = string
+  }))
   description = "Members to give access to"
   default     = []
 }
