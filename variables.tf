@@ -30,6 +30,18 @@ variable "port" {
   default     = 8080
 }
 
+variable "timeout" {
+  description = ""
+  type        = number
+  default     = null
+}
+
+variable "min_instance_count" {
+  type        = number
+  description = "Max instance the cloud run can launch"
+  default     = 0
+}
+
 variable "max_instance_count" {
   type        = number
   description = "Max instance the cloud run can launch"
@@ -70,4 +82,34 @@ variable "private_access_iam_members" {
   }))
   description = "Members to give access to"
   default     = []
+}
+
+variable "container_name" {
+  description = "Nom du conteneur"
+  type        = string
+  default     = ""
+}
+
+variable "cpu_limit" {
+  description = "Limite CPU pour le conteneur (exemple: '1000m')"
+  type        = string
+  default     = "1000m"
+}
+
+variable "memory_limit" {
+  description = "Limite mémoire pour le conteneur (exemple: '512Mi')"
+  type        = string
+  default     = "512Mi"
+}
+
+variable "startup_cpu_boost" {
+  description = "Activer le boost CPU au démarrage"
+  type        = bool
+  default     = false
+}
+
+variable "cpu_idle" {
+  description = "Permettre au CPU d'être en idle"
+  type        = bool
+  default     = true
 }

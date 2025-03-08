@@ -4,7 +4,9 @@ resource "google_cloud_run_v2_service" "main" {
   project  = var.project_id
 
   template {
+    timeout = var.timeout
     scaling {
+      min_instance_count = var.min_instance_count
       max_instance_count = var.max_instance_count
     }
 
@@ -20,6 +22,17 @@ resource "google_cloud_run_v2_service" "main" {
 
     containers {
       image = var.image
+      name  = var.container_name
+
+      resources {
+        limits = {
+          cpu    = var.cpu_limit
+          memory = var.memory_limit
+        }
+        startup_cpu_boost = var.startup_cpu_boost
+        cpu_idle          = var.cpu_idle
+      }
+
       ports {
         container_port = var.port
       }
@@ -47,7 +60,6 @@ resource "google_cloud_run_v2_service" "main" {
 
       dynamic "volume_mounts" {
         for_each = length(var.cloudsql_instances) > 0 ? [1] : []
-
         content {
           name       = "cloudsql"
           mount_path = "/cloudsql"
@@ -63,7 +75,6 @@ resource "google_cloud_run_v2_service" "main" {
     ]
   }
 }
-
 
 resource "google_cloud_run_service_iam_member" "public_invoker" {
   count    = var.is_public ? 1 : 0
