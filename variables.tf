@@ -32,7 +32,7 @@ variable "port" {
 
 variable "timeout" {
   description = ""
-  type        = number
+  type        = string
   default     = null
 }
 
@@ -48,10 +48,10 @@ variable "max_instance_count" {
   default     = 2
 }
 
-variable "cloudsql_instances" {
-  type        = list(string)
-  description = "CloudSQL instances to connect to"
-  default     = []
+variable "cloudsql_connections" {
+  description = "Map of Cloud SQL connections Cloud SQL"
+  type        = map(string)
+  default     = {}
 }
 
 variable "env_vars" {
@@ -85,31 +85,31 @@ variable "private_access_iam_members" {
 }
 
 variable "container_name" {
-  description = "Nom du conteneur"
+  description = "Container name"
   type        = string
   default     = ""
 }
 
 variable "cpu_limit" {
-  description = "Limite CPU pour le conteneur (exemple: '1000m')"
+  description = "CPU Limit for the container (example: '1000m')"
   type        = string
   default     = "1000m"
 }
 
 variable "memory_limit" {
-  description = "Limite mémoire pour le conteneur (exemple: '512Mi')"
+  description = "Memory limit for the container (exemple: '512Mi')"
   type        = string
   default     = "512Mi"
 }
 
 variable "startup_cpu_boost" {
-  description = "Activer le boost CPU au démarrage"
+  description = "Activate CPU Boost at startup"
   type        = bool
   default     = false
 }
 
 variable "cpu_idle" {
-  description = "Permettre au CPU d'être en idle"
+  description = "Allow CPU idle"
   type        = bool
   default     = true
 }

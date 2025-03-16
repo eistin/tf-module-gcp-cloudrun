@@ -11,11 +11,11 @@ resource "google_cloud_run_v2_service" "main" {
     }
 
     dynamic "volumes" {
-      for_each = length(var.cloudsql_instances) > 0 ? [1] : []
+      for_each = length(values(var.cloudsql_connections)) > 0 ? [1] : []
       content {
         name = "cloudsql"
         cloud_sql_instance {
-          instances = var.cloudsql_instances
+          instances = values(var.cloudsql_connections)
         }
       }
     }
@@ -59,7 +59,7 @@ resource "google_cloud_run_v2_service" "main" {
       }
 
       dynamic "volume_mounts" {
-        for_each = length(var.cloudsql_instances) > 0 ? [1] : []
+        for_each = length(values(var.cloudsql_connections)) > 0 ? [1] : []
         content {
           name       = "cloudsql"
           mount_path = "/cloudsql"
